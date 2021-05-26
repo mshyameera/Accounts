@@ -1,0 +1,53 @@
+package com.assignment.accounts.controllers;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.assignment.accounts.dao.AccountStatementsDAO;
+import com.assignment.accounts.dao.AccountsDAO;
+import com.assignment.accounts.dao.StatementsDAO;
+import com.assignment.accounts.services.AccountsService;
+import com.assignment.accounts.services.StatementsService;
+
+@RestController
+@RequestMapping("/admin")
+public class AdminController {
+	
+	@Autowired
+	private AccountsService accountService;
+	
+	@Autowired
+	private StatementsService statementsService;
+	
+	@GetMapping("/")
+	public ResponseEntity<List<AccountsDAO>> getAllAccounts(){
+		return new ResponseEntity<List<AccountsDAO>>(accountService.getAllAccounts(),HttpStatus.OK);
+	}
+	
+	@GetMapping("/statements")
+	public List<Map<String, Object>> getAllStatements(){
+		return statementsService.getAllStatements();
+	}	
+	
+	@GetMapping("/{account_number}")
+	public AccountsDAO getAccountByAccountNumber(@PathVariable("account_number") String account_number){
+		return accountService.getAccountByAccountNumber(account_number);
+	}
+	
+	@GetMapping("/statements/{account_number}")
+	public AccountStatementsDAO getStatementsByAccountNumber(@PathVariable("account_number") String account_number){
+		AccountsDAO accountsDAO = accountService.getAccountByAccountNumber(account_number); 
+		List<StatementsDAO> statementsList = statementsService.getAllStatementsByAccountId(accountsDAO.getId());
+		AccountStatementsDAO accountStatementsDAO = new AccountStatementsDAO(accountsDAO, statementsList);
+		return  accountStatementsDAO;
+	}
+
+}

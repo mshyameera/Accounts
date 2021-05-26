@@ -1,0 +1,14 @@
+package com.assignment.accounts.dao;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class AccountStatementsDAO {
+
+	private AccountsDAO accounts;
+	private StatementsDAO statements;
+}

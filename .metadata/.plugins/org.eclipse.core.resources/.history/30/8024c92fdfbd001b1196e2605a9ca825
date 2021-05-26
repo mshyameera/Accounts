@@ -1,0 +1,5 @@
+package com.assignment.accounts.utils;
+
+public class CustomExceptionHandler {
+
+}

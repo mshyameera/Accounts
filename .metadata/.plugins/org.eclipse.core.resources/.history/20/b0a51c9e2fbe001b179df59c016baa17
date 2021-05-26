@@ -1,0 +1,5 @@
+package com.assignment.accounts.exceptionHandlers;
+
+public class CustomDataException {
+
+}

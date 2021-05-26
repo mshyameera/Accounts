@@ -1,0 +1,5 @@
+package com.assignment.accounts.services;
+
+public class UserService {
+
+}

@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    driver-class-name: net.ucanaccess.jdbc.UcanaccessDriver
+    url: jdbc:ucanaccess://C:/Users/Public/accountsdb.accdb;openExclusive=false;ignoreCase=true;
+
+

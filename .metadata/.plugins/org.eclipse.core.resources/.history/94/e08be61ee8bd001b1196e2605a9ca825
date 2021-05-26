@@ -1,0 +1,36 @@
+package com.assignment.accounts.services;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.assignment.accounts.dao.AccountsDAO;
+import com.assignment.accounts.repos.AccountsRepo;
+import com.assignment.accounts.utils.CustomException;
+
+@Service
+public class AccountsService {
+	
+	@Autowired
+	private AccountsRepo accountsRepo;
+
+	public List<AccountsDAO> getAllAccounts() {
+		// TODO Auto-generated method stub
+		return accountsRepo.getAllAccounts();
+	}
+
+	public AccountsDAO getAccountByAccountNumber(String account_number) {
+		if(account_number.isEmpty() || (account_number.length()!=13)) {
+			//throw new CustomExceptions()
+		}
+			try {
+		return accountsRepo.getAccountByAccountNumber(account_number);
+			}
+		catch(Exception e) {
+			
+		}
+	}
+
+}

@@ -1,0 +1,41 @@
+package com.assignment.accounts.services;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.assignment.accounts.dao.AccountsDAO;
+import com.assignment.accounts.repos.AccountsRepo;
+import com.assignment.accounts.utils.CustomException;
+
+@Service
+public class AccountsService {
+
+	@Autowired
+	private AccountsRepo accountsRepo;
+
+	public List<AccountsDAO> getAllAccounts() {
+		try {
+			return accountsRepo.getAllAccounts();
+		} catch (Exception e) {
+			throw new CustomException("603", "Problem with retreiving data. Please contact your administrator."+e.getMessage());
+		}
+	}
+
+	public AccountsDAO getAccountByAccountNumber(String account_number) {
+		if (account_number.isEmpty() || (account_number.length() != 13)) {
+			throw new CustomException("601", "Given account number is either null or invalid. Please try again");
+		}
+		try {
+			return accountsRepo.getAccountByAccountNumber(account_number);
+		} catch (NullPointerException e) {
+			throw new CustomException("602", "No record is found for given account number. Please try again ");
+		}
+		catch (Exception e) {
+			throw new CustomException("603", "Something went wrong. Please contact your administrator ");
+		}
+	}
+
+}

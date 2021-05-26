@@ -1,0 +1,30 @@
+package com.assignment.accounts.repos;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import com.assignment.accounts.dao.AccountsDAO;
+
+@Repository
+public class AccountsRepoImpl implements AccountsRepo {
+
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+
+	public List<Map<String, Object>> getAllAccounts() {
+		return jdbcTemplate.queryForList("Select * from account");
+	}
+
+	@SuppressWarnings("deprecation")
+	public AccountsDAO getAccountByAccountNumber(String account_number) {
+		String sql = "SELECT * FROM account WHERE account_number = ?";
+		return (AccountsDAO) jdbcTemplate.queryForObject(sql, new Object[] { account_number },
+				(rs, rowNum) -> new AccountsDAO(rs.getLong("id"), rs.getString("account_type"),
+						rs.getString("account_number")));
+
+	}
+}

@@ -1,0 +1,5 @@
+package com.assignment.accounts.repos;
+
+public interface UserRepo {
+
+}

@@ -1,0 +1,22 @@
+package com.assignment.accounts.dao;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Data
+
+
+@AllArgsConstructor
+@NoArgsConstructor
+public class AccountsDAO {
+	
+	private Long id;
+	private String account_type;
+	private String account_number;
+	
+	
+
+}

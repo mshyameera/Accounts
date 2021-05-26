@@ -1,0 +1,38 @@
+package com.assignment.accounts.utils;
+
+import java.sql.SQLException;
+import java.util.NoSuchElementException;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+@ControllerAdvice
+public class GlobalException {
+
+	@ExceptionHandler(SQLException.class)
+	public ResponseEntity<String> handleSQLException(SQLException exception){
+		return new ResponseEntity<String>("Problem with SQL execution, Please contact your administrator", HttpStatus.BAD_REQUEST);
+		
+	}
+	
+	@ExceptionHandler(NoSuchFieldException.class)
+	public ResponseEntity<String> handleNoSuchFieldException(NoSuchFieldException exception){
+		return new ResponseEntity<String>("Problem with data field, Please check your request.", HttpStatus.BAD_REQUEST);
+		
+	}
+	
+	@ExceptionHandler(NoSuchElementException.class)
+	public ResponseEntity<String> handleNoSuchElementException(NoSuchElementException exception){
+		return new ResponseEntity<String>("No value present, Please check your request.", HttpStatus.BAD_REQUEST);
+		
+	}
+	
+	@ExceptionHandler(NullPointerException.class)
+	public ResponseEntity<String> handleNullPointerException(NullPointerException exception){
+		return new ResponseEntity<String>("No value present, Please check your request.", HttpStatus.BAD_REQUEST);
+		
+	}
+	
+}

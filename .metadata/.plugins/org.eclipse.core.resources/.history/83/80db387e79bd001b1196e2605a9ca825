@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    driver-class-name: net.ucanaccess.jdbc.UcanaccessDriver
+    url: jdbc:ucanaccess://C:/Users/Public/accountsdb.accdb;openExclusive=false;ignoreCase=true;
+  security:
+    user:
+      name: user
+      password: user
+      roles: ADMIN
+
+log4j:
+   logger:org.springframework.jdbc.core = TRACE

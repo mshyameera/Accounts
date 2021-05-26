@@ -1,0 +1,5 @@
+package com.assignment.accounts.filters;
+
+public class JwtRequestFilter {
+
+}

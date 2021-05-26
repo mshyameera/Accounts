@@ -1,0 +1,20 @@
+package com.assignment.accounts.services;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.assignment.accounts.repos.StatementsRepo;
+
+public class StatementsService {
+	
+	@Autowired
+	private StatementsRepo statementsRepo;
+
+	public List<Map<String, Object>> getAllStatements() {
+		// TODO Auto-generated method stub
+		return statementsRepo.getAllStatements();
+	}
+
+}

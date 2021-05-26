@@ -1,0 +1,13 @@
+package com.assignment.accounts.services;
+
+import java.util.List;
+import java.util.Map;
+
+public class AccountsService {
+
+	public List<Map<String, Object>> getAllAccounts() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

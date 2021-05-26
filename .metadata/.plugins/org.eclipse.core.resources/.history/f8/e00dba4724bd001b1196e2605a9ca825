@@ -1,0 +1,9 @@
+datasource: ''
+driver-class-name: net.ucanaccess.jdbc.UcanaccessDriver
+name: user
+password: password
+roles: ADMIN
+security: ''
+spring: ''
+url: jdbc:ucanaccess://C:/Users/Public/accountsdb.accdb;openExclusive=false;ignoreCase=true;
+user: ''

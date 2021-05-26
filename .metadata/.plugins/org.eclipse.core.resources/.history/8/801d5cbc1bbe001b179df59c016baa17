@@ -1,0 +1,73 @@
+package com.assignment.accounts.services;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.assignment.accounts.dao.RequestDAO;
+import com.assignment.accounts.dao.StatementsDAO;
+import com.assignment.accounts.repos.StatementsRepo;
+import com.assignment.accounts.utils.CustomException;
+
+@Service
+public class StatementsService {
+
+	@Autowired
+	private StatementsRepo statementsRepo;
+
+	public List<Map<String, Object>> getAllStatements() {
+		try {
+			return statementsRepo.getAllStatements();
+		} catch (Exception e) {
+			throw new CustomException("609", "Something went wrong. Please contact your administrator "+e.getMessage());
+		}
+	}
+
+	public List<StatementsDAO> getAllStatementsByAccountId(Long id) {
+		try {
+			return statementsRepo.getAllStatementsByAccountId(id);
+		} catch (Exception e) {
+			throw new CustomException("610", "Something went wrong. Please contact your administrator "+e.getMessage());
+		}
+	}
+
+	public List<StatementsDAO> getThreeMonthStatements(Long id) {
+		String endDate;
+		String startDate;
+		try {
+			endDate = statementsRepo.getMaxTransactionDate(id);
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+			startDate = (LocalDate.parse(endDate,formatter).minusMonths(3)).toString();
+		} catch (Exception e) {
+			throw new CustomException("611", "Problem with date value. Please contact your administrator "+e.getMessage());
+		}
+		try {
+			return statementsRepo.getThreeMonthStatements(id, startDate, endDate);
+		} catch (Exception e) {
+			throw new CustomException("612", "Problem with statements retreival. Please contact your administrator "+e.getMessage());
+		}
+	}
+	
+	public List<StatementsDAO> getStatementsByAccountNumberWithDate(RequestDAO requestDAO, Long id) {
+		String endDate = requestDAO.getEnddate();
+		String startDate = requestDAO.getStartdate();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+		DateTimeFormatter sqlFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		startDate = (sqlFormatter.format(LocalDate.parse(startDate,formatter))).toString();
+		endDate = (sqlFormatter.format(LocalDate.parse(endDate,formatter))).toString();
+		//endDate = (LocalDate.parse(endDate,formatter)).toString();
+		
+		try {
+			return statementsRepo.getStatementsByAccountNumberWithDate(id, startDate, endDate);
+		} catch (Exception e) {
+			throw new CustomException("613", "Problem with statements retreival. Please contact your administrator "+e.getMessage());
+		}
+	}
+
+}

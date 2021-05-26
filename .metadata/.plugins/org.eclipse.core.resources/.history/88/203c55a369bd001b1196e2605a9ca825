@@ -1,0 +1,27 @@
+package com.assignment.accounts.services;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.assignment.accounts.dao.AccountsDAO;
+import com.assignment.accounts.repos.AccountsRepo;
+
+@Service
+public class AccountsService {
+	
+	@Autowired
+	private AccountsRepo accountsRepo;
+
+	public List<Map<String, Object>> getAllAccounts() {
+		// TODO Auto-generated method stub
+		return accountsRepo.getAllAccounts();
+	}
+
+	public AccountsDAO getAccountByAccountNumber(String account_number) {
+		return accountsRepo.getAccountByAccountNumber(account_number);
+	}
+
+}
